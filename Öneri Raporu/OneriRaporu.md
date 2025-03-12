@@ -34,7 +34,7 @@ Bu projenin amacı, güvenlik, konfor ve enerji verimliliği sağlayan entegre b
 | Arduino/ESP8266/ESP32 (İletişim) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/Esp32-Arduino.png" width="200"> |
 | Ultrasonik Sensör (HC-SR04) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/HC-SR04.png" width="200"> |
 | Fotodirenç (LDR) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/LDR.png" width="200"> |
-| Hareket Algılama Sensörü (PIR)| <img src="https://github.com/metehansozenli/EviniKesfet/blob/Öneri%20Raporu/main/Figure/PIR.png" width="200"> |
+| Hareket Algılama Sensörü (PIR)| <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/PIR.png" width="200"> |
 | 16x2 LCD (Yerel ekran) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/LCD.png" width="200"> |
 | Keypad (Şifre girişi) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/Keypad.jpg" width="200"> |
 | RGB LED (Aydınlatma) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/RGB.png" width="200"> |
