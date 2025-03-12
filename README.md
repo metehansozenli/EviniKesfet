@@ -17,16 +17,16 @@ Bu proje kapsamında geliştirilecek olan sistem aşağıdaki bileşenleri içer
 
 | Ekipman | Görsel |
 |--------|------|
-| Arduino/ESP8266/ESP32 (İletişim) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/Esp32-Arduino.png" width="200"> |
-| Ultrasonik Sensör (HC-SR04) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/HC-SR04.png" width="200"> |
-| Fotodirenç (LDR) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/LDR.png" width="200"> |
-| Hareket Algılama Sensörü (PIR)| <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/PIR.png" width="200"> |
-| 16x2 LCD (Yerel ekran) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/LCD.png" width="200"> |
-| Keypad (Şifre girişi) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/Keypad.jpg" width="200"> |
-| RGB LED (Aydınlatma) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/RGB.png" width="200"> |
-| Buzzer (Zil) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/Buzzer.jpg" width="200"> |
-| Sıcaklık Sensörü (LM35) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/LM35.jpg" width="200"> |
-| Dirençler ve bağlantı elemanları | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Öneri%20Raporu/Figure/BaglantiElemanlari.png" width="200"> |
+| Arduino/ESP8266/ESP32 (İletişim) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Figure/Esp32-Arduino.png" width="200"> |
+| Ultrasonik Sensör (HC-SR04) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Figure/HC-SR04.png" width="200"> |
+| Fotodirenç (LDR) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Figure/LDR.png" width="200"> |
+| Hareket Algılama Sensörü (PIR)| <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Figure/PIR.png" width="200"> |
+| 16x2 LCD (Yerel ekran) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Figure/LCD.png" width="200"> |
+| Keypad (Şifre girişi) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Figure/Keypad.jpg" width="200"> |
+| RGB LED (Aydınlatma) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Figure/RGB.png" width="200"> |
+| Buzzer (Zil) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Figure/Buzzer.jpg" width="200"> |
+| Sıcaklık Sensörü (LM35) | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Figure/LM35.jpg" width="200"> |
+| Dirençler ve bağlantı elemanları | <img src="https://github.com/metehansozenli/EviniKesfet/blob/main/Figure/BaglantiElemanlari.png" width="200"> |
 
 
 ### Yazılım
