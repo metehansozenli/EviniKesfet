@@ -7,7 +7,7 @@ Evini Keşfet Akıllı Ev Sistemleri, güvenlik, konfor ve enerji verimliliği s
 Bu proje kapsamında geliştirilecek olan sistem aşağıdaki bileşenleri içerecektir:
 - **Akıllı Kapı Erişim Sistemi**: Kapıya yaklaşan kişiyle birlikte kamera aktive olacak, fotoğraf çekilecek ve mobil uygulamaya bildirim gönderilecektir. Kapı, manuel olarak şifre girilerek veya mobil uygulama üzerinden açılabilecektir.
 - **Kapı Zili Bildirimi**: Kapı zili çaldığında mobil uygulamaya bildirim gidecektir.
-- **Hareket ve Veri Kaydı**: Genel hareketler Firebase veya ThingSpeak'e kaydedilecektir.
+- **Hareket ve Veri Kaydı**: Genel sensör verileri Firebase veya ThingSpeak'e kaydedilecektir.
 - **Akıllı Aydınlatma Sistemi**: Ortam karanlıksa, ışık sensöründen alınan veriye göre aydınlatma otomatik olarak açılacaktır.
 - **Ortam İzleme**: Evin iç sıcaklığı mobil uygulama üzerinden izlenebilecek, RGB ışıklar kontrol edilebilecek ve sıcaklık ile sensör verileri grafiksel olarak gösterilecektir.
 
