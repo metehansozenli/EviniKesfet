@@ -45,7 +45,8 @@ Proje kapsamında, donanım ve yazılım bileşenlerinin entegrasyonu başarıyl
 | Cihaz-Cihaz | `UART` | Arduino UNO ⇄ ESP8266 | Basit, çift yönlü, düşük pin ihtiyacı |  
 | Cihaz-Sunucu | `MQTT` | ESP8266/Arduino ⇄ Raspberry Pi | Konu-tabanlı, hafif, düşük gecikme |  
 | Sensör / Ekran | `I²C` | Raspberry Pi ⇄ LCD | 2 hat üzerinden çoklu cihaz |  
-| Kamera | `MIPI CSI-2` | Pi ⇄ Camera Module 3 | Yüksek bant genişliği, düşük gecikme |  
+| Kamera | `MIPI CSI-2` | Pi ⇄ Camera Module 3 | Yüksek bant genişliği, düşük gecikme |
+| Cihaz-Sürücü | `PWM` | Arduino UNO ⇄ Step Motor Sürücüsü | Adım kontrolünü ve hızı belirlemede basit ve etkili |  
 
 
 
@@ -61,27 +62,29 @@ Proje kapsamında, donanım ve yazılım bileşenlerinin entegrasyonu başarıyl
 
       ```plaintext
       evinikesfet/
-      ├─ kapı/
-      │   ├─ komut            # evinikesfet/kapı/komut          (“aç” / “kapat”)
-      │   ├─ durum            # evinikesfet/kapı/durum          (“açık” / “kapalı”)
-      │   ├─ kamera           # evinikesfet/kapı/kamera/durum   (“açık” / “kapalı”)
-      │   ├─ zil              # evinikesfet/kapı/zil            (“çalındı”)
-      │   └─ sensörler/
-      │       └─ yakınlık     # evinikesfet/kapı/sensörler/yakınlık
-      ├─ koridor/
-      │   ├─ sensörler/
-      │   │   ├─ ldr          # evinikesfet/koridor/sensörler/ldr
-      │   │   └─ hareket      # evinikesfet/koridor/sensörler/hareket
-      │   └─ lamba/
-      │       ├─ komut        # evinikesfet/koridor/lamba/komut
-      │       └─ durum        # evinikesfet/koridor/lamba/durum
       └─ oda/
-          ├─ sensörler/
-          │   └─ sıcaklık     # evinikesfet/oda/sensörler/sıcaklık
-          └─ renkli_lamba/
-              ├─ komut        # evinikesfet/oda/renkli_lamba/komut
-              ├─ renk         # evinikesfet/oda/renkli_lamba/renk
-              └─ durum        # evinikesfet/oda/renkli_lamba/durum
+          ├─ kapı/
+          │   ├─ komut            # evinikesfet/oda/kapı/komut            (“aç” / “kapat”)
+          │   ├─ durum            # evinikesfet/oda/kapı/durum            (“açık” / “kapalı”)
+          │   ├─ kamera           # evinikesfet/oda/kapı/kamera           (“açık” / “kapalı”)
+          │   ├─ zil              # evinikesfet/oda/kapı/zil              (“çalındı”)
+          │   ├─ yuz_algilama     # evinikesfet/oda/kapı/yuz_algilama     (yüz tespiti bildirimi)
+          │   └─ sensörler/
+          │       └─ yakınlık     # evinikesfet/oda/kapı/sensörler/yakınlık (mesafe JSON)
+          ├─ koridor/
+          │   ├─ sensörler/
+          │   │   ├─ ldr          # evinikesfet/oda/koridor/sensorler/ldr
+          │   │   └─ hareket      # evinikesfet/oda/koridor/sensorler/hareket
+          │   └─ lamba/
+          │       ├─ komut        # evinikesfet/oda/koridor/lamba/komut
+          │       └─ durum        # evinikesfet/oda/koridor/lamba/durum
+          └─ salon/
+              ├─ sensörler/
+              │   └─ sıcaklık     # evinikesfet/oda/salon/sensorler/sicaklik
+              └─ renkli_lamba/
+                  ├─ komut        # evinikesfet/oda/salon/renkli_lamba/komut
+                  ├─ renk         # evinikesfet/oda/salon/renkli_lamba/renk
+                  └─ durum        # evinikesfet/oda/salon/renkli_lamba/durum
       ```
 
 3. **Sunucu Katmanı**  
@@ -96,14 +99,17 @@ Proje kapsamında, donanım ve yazılım bileşenlerinin entegrasyonu başarıyl
 
 # 4. Yapılan Çalışmalar ve Görselleri
 
-
 ### 4.1 Akıllı Kapı Erişim Sistemi  
 
 - Uzaklık sensörü nesne tespit ettiğinde LCD aydınlanır ve kamera açılır.  
 - Kamera görüntüleri canlı olarak servera aktarılmaktadır.  
 - Tespit edilen insan görüntü kareleri sunucuya iletilir.  
 - Şifreli kapı tuş ile veya serverdan şifre girilerek açılır.  
-- Kapı açma işlemi, step motor aracılığıyla fiziksel olarak gerçekleştirilir.  
+- Kapı açma işlemi, step motor aracılığıyla fiziksel olarak gerçekleştirilir.
+- Kapı açma işleminde kullanılan step motor, **PWM (Pulse Width Modulation)** sinyalleriyle kontrol edilir.
+- Arduino tarafından üretilen PWM sinyali, motor sürücüsüne iletilir ve bu sinyalin frekansı, motorun adım hızı ve yönünü belirler.
+Böylece kapının belirli açıda ve düzgün bir şekilde açılıp kapanması mümkün hale gelir.
+- Darbelerin süresi ve sayısı, motorun kaç tur ya da kaç adım döneceğini belirler.  
 - Zil butonuna basıldığında MQTT mesajı tetiklenir, sunucu Firebase veritabanına gönderir.  
 
 <div align="center" style="margin-top: 25px; margin-bottom: 20px;">
@@ -151,8 +157,9 @@ Proje kapsamında, donanım ve yazılım bileşenlerinin entegrasyonu başarıyl
 - Gelen kamera görüntüleri OpenCV ile işlenmekte ve yüz algılama modeli ile tespit edilen görüntüler Firebase'e kaydedilmektedir. 
 
 ### 4.5 Sistemlerin Birbirine Entegre Edilmesi
-- adsada
-- asdasd
+- Projedeki tüm modüller (kapı, koridor, salon vb.), Raspberry Pi üzerinde kurulu olan HiveMQTT broker aracılığıyla merkezi olarak haberleşmektedir. 
+- Her modül, MQTT protokolü ile kendi verisini ve komutlarını belirli topic’ler üzerinden Raspberry Pi’ye iletir ya da alır. 
+- Raspberry Pi üzerinde çalışan Flask tabanlı sunucu, bu verileri anlık olarak alarak hem işlemleri yönetir hem de Firebase Realtime Database’e kaydeder. Böylece, tüm modüller arasında gerçek zamanlı, güvenli ve merkezi bir entegrasyon sağlanmıştır.
 
 ### 4.6 Mobil Uygulama  
 - Mobil uygulama, `Flutter (Dart)` framework’ü kullanılarak geliştirilmiş, Android cihazlar için `Android Studio` ortamında derlenmiştir. Geliştirme sürecinde, modüler yapı benimsenmiştir.
@@ -169,26 +176,76 @@ Proje kapsamında, donanım ve yazılım bileşenlerinin entegrasyonu başarıyl
 
 - Kullanıcı uygulamaya bir kez giriş yaptığında oturumu cihazda kalıcı olarak saklanmakta, böylece tekrar giriş yapmasına gerek kalmamaktadır. Çıkış yapıldığında ise oturumu ve FCM token'ı silinmekte, bu sayede o kullanıcıya özel bildirimler artık gitmemektedir.
 
-<p align="center" style="margin-top: 25px;">
-  <img src="Figure/uygulama_anasayfa.png" height="450" width="210" style="margin-right: 25px;"/>
-  <img src="Figure/salon.png" height="450" width="210" style="margin-right: 25px;"/>
-  <img src="Figure/koridor.png" width="210" height="450" style="margin-right: 25px;"/>
-  <img src="Figure/veri_analizi.gif" height="450" width="210" style="margin-right: 25px;"/>
-</p>
-<p align="center" style="margin-top: 25px;">
-  <img src="Figure/kapı_ve_kamera.png" height="450" width="210" style="margin-right: 25px;"/>
-  <img src="Figure/kamera_goruntuleri.png" height="450" width="210" style="margin-right: 25px;"/>
-  <img src="Figure/uygulama_bildirimleri.png" height="450" width="210" style="margin-right: 25px;"/>
-</p>
+#### Mobil Uygulama Ekranları (Güncel)
 
-<p align="center"><em>
-Şekil 4: Mobil uygulama arayüzü ekranları.
-</em></p>
+**1. Giriş ve Kayıt**
+<p align="center">
+  <img src="Figure/App_Figures/giris.png" height="490"/>
+  <img src="Figure/App_Figures/kayit_ol.png" height="490"/>
+</p>
+<p align="center"><em>Giriş ve yeni kullanıcı kayıt ekranları</em></p>
+
+**2. Ana Sayfa ve Oda Listesi**
+<p align="center">
+  <img src="Figure/App_Figures/ana_sayfa.png" height="490"/>
+  <img src="Figure/App_Figures/ana_sayfa_devam.png" height="490"/>
+</p>
+<p align="center"><em>Ana sayfa ve devamı: ortam verileri, hızlı erişim kartları</em></p>
+
+**3. Salon ve Koridor Kontrol**
+<p align="center">
+  <img src="Figure/App_Figures/salon_manuel.png" height="490"/>
+  <img src="Figure/App_Figures/salon_otomatik.png" height="490"/>
+  <img src="Figure/App_Figures/salon_rgb_secimi.png" height="490"/>
+</p>
+<p align="center"><em>Salon manuel/otomatik kontrol ve RGB renk seçimi</em></p>
+<p align="center">
+  <img src="Figure/App_Figures/koridor_manuel.png" height="490"/>
+  <img src="Figure/App_Figures/koridor_otomatik.png" height="490"/>
+</p>
+<p align="center"><em>Koridor manuel ve otomatik kontrol ekranları</em></p>
+
+**4. Veri Analizi**
+<p align="center">
+  <img src="Figure/App_Figures/veri_analizi.png" height="490"/>
+  <img src="Figure/App_Figures/veri_analizi_devam.png" height="490"/>
+</p>
+<p align="center"><em>Veri analizi ve detay ekranları</em></p>
+
+**5. Kapı, Kamera ve Galeri**
+<p align="center">
+  <img src="Figure/App_Figures/kapi_kamera.png" height="490"/>
+  <img src="Figure/App_Figures/kapi_kildi_acma.png" height="490"/>
+  <img src="Figure/App_Figures/kapi_sifresi_ayarlama.png" height="490"/>
+  <img src="Figure/App_Figures/galeri.png" height="490"/>
+</p>
+<p align="center"><em>Kapı kamerası, kilit açma, şifre ayarlama ve galeri ekranları</em></p>
+
+**6. Karanlık Mod**
+<p align="center">
+  <img src="Figure/App_Figures/karanlik_mod_ana_sayfa.png" height="490"/>
+  <img src="Figure/App_Figures/karanlik_mod_secim.png" height="490"/>
+</p>
+<p align="center"><em>Karanlık mod açma, ana sayfa ve seçim ekranı</em></p>
+
+**7. Profil**
+<p align="center">
+  <img src="Figure/App_Figures/profil.png" height="490"/>
+  <img src="Figure/App_Figures/profil_sifre_guncelleme.png" height="490"/>
+</p>
+<p align="center"><em>Profil ve şifre güncelleme ekranları</em></p>
+
+**8. Bildirimler ve Ayarlar**
+<p align="center">
+  <img src="Figure/App_Figures/bildirimler.png" height="490"/>
+  <img src="Figure/App_Figures/ayarlar.png" height="490"/>
+</p>
+<p align="center"><em>Bildirimler ve ayarlar ekranları</em></p>
 
 
 # 5. Elde Edilen Sonuçlar 
 ### 5.1 Donanım
-- 1 Adet sunucu ve kapı modülü görevi gören `Raspberry Pi `5, 1 adet koridor modülü görevi gören `Arduino Uno` ve  1 adet salon modülü görevi gören `ESP8266` kullanılarak akkılı ev sistemi hazırlanılmıştır.
+- 1 Adet sunucu ve kapı modülü görevi gören `Raspberry Pi `5, 1 adet koridor modülü görevi gören `Arduino Uno` ve  1 adet salon modülü görevi gören `ESP8266` kullanılarak akılı ev sistemi hazırlanılmıştır.
 
 - Tüm donanımlar `Raspberry Pi 5` ile haberleştirilerek dış ortama açılmıştır. 
 
@@ -220,6 +277,21 @@ Proje kapsamında, donanım ve yazılım bileşenlerinin entegrasyonu başarıyl
 ### 5.4 Modelleme
 - Geliştirilen akıllı ev sistemleri projesi karton maketlerle modellenerek sistem somutlaştırılmıştır.
 
+Aşağıda, projenin oluşturulmuş basit ev maketinin fotoğrafları yer almaktadır:
+
+<p align="center">
+  <img src="Figure/maket1.jpg" alt="Maket 1" width="250"/>
+  <img src="Figure/maket2.jpg" alt="Maket 2" width="250"/>
+  <img src="Figure/maket3.jpg" alt="Maket 3" width="250"/>
+</p>
+
+<p align="center">
+  <img src="Figure/maket4.jpg" alt="Maket 4" width="250"/>
+  <img src="Figure/maket5.jpg" alt="Maket 5" width="250"/>
+  <img src="Figure/maket6.jpg" alt="Maket 6" width="250"/>
+</p>
+
+
 # 6. Karşılaşılan Sorunlar ve Çözümler
 | Sorun | Çözüm|
 |-------------|--------------------------------------------|
@@ -228,6 +300,10 @@ Proje kapsamında, donanım ve yazılım bileşenlerinin entegrasyonu başarıyl
 |PIR sensöründe hareket algılamada sorunlar yaşandı| Sensör Datasheet'i incelenerek sensörün kendini kalibre etmesi için gerekli olan 30 saniye bekleme süresi eklendi |
 |LCD modülünün fazla pin kullanması nedeniyle pin yetersizliği yaşandı| I²C çevirici kartı kullanılarak pin kullanımı azaltılarak sorun çözüldü.|
 |Kızılötesi kumandanın Raspberry PI 5'a bağlantısında sıktılar yaşandı| gpio_ir_recv sürücüsünü doğru pinle (dtoverlay=gpio-ir,gpio_pin=5) aktifleştirip, evdev ile doğrudan /dev/input/event üzerinden sürekli dinleyerek çözüldü.|
+| Bağlantı kopmaları – Broker’a zaman zaman yeniden bağlanamama                | on_connect geri çağrısı ve otomatik yeniden bağlanma mekanizması                                  |
+| İletim garantisi yok – Mesajlar QoS 0’da kaybolabiliyor                      | Kritik mesajlar için *QoS 1* (en az bir kez) veya *QoS 2* (tam bir kez) kullanımı               |
+| Response-tracking karmaşıklığı – Komut cevabı alınamadığında belirsizlik     | Her komut için **benzersiz request_id**, Threading.Event ile 30 sn timeout, periyodik temizleme |
+| Veri tutarsızlığı – MQTT mesajı kaybolur-sa Firebase durumu yanlış kalabilir | load_status_from_database ile başlangıç senkronu + her mesajda veritabanı güncellemesi            |
 
 
 # Katkı Sağlayanlar
